@@ -27,4 +27,38 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
+
+  testWidgets('Counter decrement smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(MyApp());
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.remove));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('-1'), findsOneWidget);
+  });
+
+  testWidgets('Reset the counter', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(MyApp());
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('1'), findsOneWidget);
+    expect(find.text('0'), findsNothing);
+
+    // Tap the reset icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.exposure_zero));
+    await tester.pump();
+
+    // Verify that our counter has reseted.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+  });
 }
